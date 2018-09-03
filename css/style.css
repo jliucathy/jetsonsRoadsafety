@@ -131,10 +131,33 @@ blockquote {
 	position: relative;
 	color: #fff;
 }
-.banner-image {
+.banner-image{
 	vertical-align: middle;
 	min-height: 100%;
 	width: 100%;
+}
+.banner-image-contact{
+	vertical-align: middle;
+	min-height: 100%;
+	width: 100%;
+}
+.banner-image-about{
+	vertical-align: middle;
+	min-height: 100%;
+	width: 100%;
+}
+.banner-image-info{
+	vertical-align: middle;
+	min-height: 100%;
+	width: 100%;
+}
+.banner-image-aware{
+	vertical-align: middle;
+	min-height: 100%;
+	width: 100%;
+}
+.after banner{
+	background-color: #708090;
 }
 .banner:after {
 	position: absolute;
@@ -142,7 +165,6 @@ blockquote {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.55);
 	content: "";
 }
 .banner-caption {
@@ -165,8 +187,8 @@ blockquote {
 /* Backgrounds
 ----------------------------------------------------------------------------- */
 .default-bg {
-	background-color: #222222;
-	color: #ffffff;
+	background-color: #708090;
+	color: 	#ff8c00;
 }
 .default-bg.blue {
 	background-color: #55acee;
@@ -175,7 +197,10 @@ blockquote {
 	color: #ffffff;
 }
 .default-bg h1,
-.default-bg h2,
+.default-bg h2{
+		color: #ff8c00;
+}
+
 .default-bg h3,
 .default-bg h4,
 .default-bg h5,
