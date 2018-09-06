@@ -9,15 +9,15 @@
 
 (function($){
 	$(document).ready(function(){
-		if($(window).width() < 991){
-			$(".banner-image").backstretch('images/safety-first-road-generic-c.jpg');
-		}
-		else{
+	//	if($(window).width() < 991){
+	//		$(".banner-image").backstretch('images/safety-first-road-generic-c.jpg');
+//		}
+//		else{
 	//	$(".banner-image").backstretch(
-		//	[{ url: "https://youtu.be/ZOZOqbK86t0", duration:6000, mute: true, alignY: 0, isVideo: true }]
-		$(".banner-image").backstretch('images/safety-first-road-generic-c.jpg');
-//		);
-	}
+	//		[{ url: "https:\/\/www.youtube.com\/watch?v=tdf8AB5X5jE", mute: true }]
+	//	);
+	//	$(".banner-image").backstretch('images/safety-first-road-generic-c.jpg');
+//	}
 
 		$(".slides").backstretch(['images/pic1.jpg','images/pic2.jpg','images/pic3.jpg'],{duration:1800,fade: 750});
 		$(".banner-image-contact").backstretch('images/bg-image-2.jpg');

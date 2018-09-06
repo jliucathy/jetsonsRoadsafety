@@ -129,14 +129,15 @@ blockquote {
 	width: 100%;
 	height: 100%;
 	min-height: 100%;
-	position: relative;
 	color: #fff;
+	right: 0;
 }
 .banner-image{
 	vertical-align: middle;
 	min-height: 130%;
 	width: 100%;
 }
+
 
 .slides{
 	width: 521px;
@@ -181,14 +182,14 @@ blockquote {
 }
 .subfooter {
 	background-color: #fafafa;
-	border-top: 1px solid #f3f3f3;
-	border-bottom: 0 solid #f3f3f3;
+	border-top: solid #f3f3f3;
+	border-bottom: solid #f3f3f3;
 	padding: 10px 0;
 }
 .footer {
 	background-color: #fafafa;
-	border-top: 1px solid #f3f3f3;
-	border-bottom: 1px solid #f3f3f3;
+	border-top: solid #f3f3f3;
+	border-bottom: solid #f3f3f3;
 	padding: 10px 0;
 }
 .footer p{
@@ -367,7 +368,7 @@ blockquote {
 	border-color: #ff8c00;
 }
 .btn-index{
-	margin:0px auto; 
+	margin:0px auto;
 	display:block;
 }
 
@@ -454,6 +455,12 @@ blockquote {
 
 /* Forms
 ---------------------------------- */
+.form-control-location{
+	height: 45px;
+	border-radius: 10px;
+	margin: 0 auto;
+	display: block;
+}
 .form-control {
 	height: 45px;
 	-webkit-border-radius: 0px;
