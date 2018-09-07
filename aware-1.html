@@ -35,6 +35,7 @@
 		<link href="css/custom.css" rel="stylesheet">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 	</head>
 
 	<body class="no-trans">
@@ -158,25 +159,137 @@
 		</div>
 
 		<div class="space"></div>
-		<div>
+		<div class="container">
+			<div class="row">
 				<h2 class="text-center">Check surroundings</h2>
-				<div class="col-md-4">
-				<input type="text" class="form-control-location" id="start" placeholder="FROM" width="80%" required>
+				<div class="row">
+					<div class="col-md-6"/>
+      			<input type="text" id="startpoint" placeholder="Your location" width="80%" required/>
+						<br/>
+						<!--
+      			<input type="text" id="endpoint" placeholder="To" width="80%" required/>
+					-->
+						<br/>
+						<input type="radio" id="erc" name="vic">Emergency Road Closure Points<br/>
+  					<input type="radio" id="rwe" name="vic">Roadworks and Events<br/>
+						<br/>
+						<input class="btn btn-default" type="button" onClick="vis()" value="SEARCH" >
 			</div>
-			<div class="col-md-4">
-				<input type="text" class="form-control-location" id="end" placeholder="TO" width="80%" required>
-			</div>
-			<div class="col-md-4">
-				<input class="btn btn-default btn-index" type="button" onClick="fun()" value="SEARCH" >
+				<div id="map" class="col-md-6"></div>
 			</div>
 		</div>
+	</div>
+	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places"></script>
+	
 		<script>
+		//-38.973,144.686,-37.848,145.36
+		var map = new google.maps.Map(document.getElementById("map"), {
+  					zoom: 8,
+  					center: new google.maps.LatLng(-37.8136,144.9631),
+  					mapTypeId: google.maps.MapTypeId.TERRAIN,
+          	zoomControl: true,
+          	zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_TOP
+          },
+          scaleControl: true,
+          streetViewControl: true,
+          streetViewControlOptions: {
+              position: google.maps.ControlPosition.LEFT_TOP
+          }
+				});
+				var LatLngercs=[];
+				var LatLngrwes=[];
+				var markers=[];
+				var begin=document.getElementById("startpoint");
+		//		var dest=document.getElementById("endpoint");
+				var option= {
+    				componentRestrictions: {country: 'au'}
+  			};
+				var autocompleteStart = new google.maps.places.Autocomplete(begin,option);
+  //      var autocompleteEnd = new google.maps.places.Autocomplete(dest,option);
 
-		</script>
+		function vis(){
+			clearMarkers();
+//		var geocoder = new google.maps.Geocoder();
 
+//tempjs.txt
+		var smalllat=-38.973;
+		var smalllng=144.686;
+		var biglat=-37.848;
+		var biglng=145.36;
+		var smalllatlng = new google.maps.LatLng(smalllat,smalllng);
+		var largelatlng = new google.maps.LatLng(biglat,biglng);
+		var bounds = new google.maps.LatLngBounds(smalllatlng,largelatlng);
+		map.fitBounds(bounds);
 
-		<!-- script map -->
-		<!-- ================ -->
+		var ercurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:erc_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
+								smalllat+","+smalllng+","+biglat+","+biglng+
+								"&AUTH=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1waGlsbGlwcyIsImdpdmVuTmFtZSI6Ik1hcmMgUGhpbGxpcHMiLCJlbWFpbCI6Im1waGlsbGlwc0B2cmFwaS52aWNyb2Fkcy52aWMuZ292LmF1IiwiZXhwIjoxNTY1NjUxNTc0LCJzdWIiOiJ2aWNhcGkvbXBoaWxsaXBzLTU5Zjk1NTY5LTEzMzUtNGVjMC05YTMzLTk0YjIzZWEwMDRmMCJ9.UbOma6sRp8T2avwr_QbroGZG7x5ot9-0l1bDHrN9PLY";
+		var rweurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:rwe_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
+								smalllat+","+smalllng+","+biglat+","+biglng+
+								"&AUTH=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1waGlsbGlwcyIsImdpdmVuTmFtZSI6Ik1hcmMgUGhpbGxpcHMiLCJlbWFpbCI6Im1waGlsbGlwc0B2cmFwaS52aWNyb2Fkcy52aWMuZ292LmF1IiwiZXhwIjoxNTY1NjUxNTc0LCJzdWIiOiJ2aWNhcGkvbXBoaWxsaXBzLTU5Zjk1NTY5LTEzMzUtNGVjMC05YTMzLTk0YjIzZWEwMDRmMCJ9.UbOma6sRp8T2avwr_QbroGZG7x5ot9-0l1bDHrN9PLY";
+		if(document.getElementById('erc').checked) {
+			$.ajax({
+				url: ercurl,
+				datatype:'json',
+				async: false,
+				success:function(data) {
+										data.features.forEach(function (ln){
+											var lng=ln.geometry.coordinates[0];//0long& 1lat
+											var lat=ln.geometry.coordinates[1];
+											var latlng = new google.maps.LatLng(lat,lng);
+											LatLngercs.push(latlng);
+											console.log(ln.properties.closed_road_name);
+										})
+									},
+					error:function(){ throw error;}
+							});
+							var imaage="./images/info.png";
+							LatLngercs.forEach(function(LatLngerc) {
+								var marker = new google.maps.Marker({
+									position: LatLngerc,
+									icon: imaage,
+									map: map
+								});
+								markers.push(marker);
+							});
+		}
+		if(document.getElementById('rwe').checked) {
+			$.ajax({
+						url: rweurl,
+						datatype:'json',
+						async: false,
+						success:function(data) {
+												data.features.forEach(function (ln){
+													var lng=ln.geometry.coordinates[0];//0long& 1lat
+													var lat=ln.geometry.coordinates[1];
+													var latlng = new google.maps.LatLng(lat,lng);
+													LatLngrwes.push(latlng);
+													console.log(ln.properties.subject_pref_rdname);
+												})
+											},
+							error:function(){ throw error;}
+									});
+					var imaage="./images/beachflag.png";
+					LatLngrwes.forEach(function(LatLngrwe) {
+						var marker = new google.maps.Marker({
+							position: LatLngrwe,
+							icon: imaage,
+							map: map
+						});
+						markers.push(marker);
+					});
+		}
+	}
+function clearMarkers() {
+	for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+	}
+  markers = [];
+	LatLngercs=[];
+	LatLngrwes=[];
+}
+	</script>
 
 
 		<footer id="footer">
