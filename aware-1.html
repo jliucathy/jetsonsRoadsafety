@@ -247,11 +247,9 @@
 		//		var bounds = new google.maps.LatLngBounds(smalllatlng,largelatlng);
 		//		map.fitBounds(bounds);
 				var ercurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:erc_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng+
-										"&AUTH=";
+										smalllat+","+smalllng+","+biglat+","+biglng;
 				var rweurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:rwe_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng+
-										"&AUTH=";
+										smalllat+","+smalllng+","+biglat+","+biglng;
 				if(document.getElementById('erc').checked) {
 					$.ajax({
 						url: ercurl,
