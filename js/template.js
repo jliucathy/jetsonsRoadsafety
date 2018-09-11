@@ -23,7 +23,7 @@
 		$(".banner-image-contact").backstretch('images/bg-image-2.jpg');
 		$(".banner-image-about").backstretch('images/portfolio-12.jpg');
 		$(".banner-image-info").backstretch('images/opppp.jpg');
-		$(".banner-image-aware").backstretch('images/opppp.jpg');
+		$(".banner-image-aware").backstretch('images/portfolio-5.jpg');
 
 		// Fixed header
 		//-----------------------------------------------

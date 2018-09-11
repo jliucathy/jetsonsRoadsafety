@@ -181,8 +181,21 @@ blockquote {
 	width: 100%;
 	z-index: 2;
 }
+.footer {
+	background-color: #fafafa;
+	border-top: 1px solid #f3f3f3;
+	border-bottom: 1px solid #f3f3f3;
+	padding: 0 0;
+}
+.footer{
+	font-size: 15px;
+}
 .subfooter {
 	background-color: #fafafa;
+<<<<<<< HEAD
+	border-top: 1px solid #f3f3f3;
+	border-bottom: 1px solid #f3f3f3;
+=======
 	border-top: solid #f3f3f3;
 	border-bottom: solid #f3f3f3;
 	padding: 0 0;
@@ -191,6 +204,7 @@ blockquote {
 	background-color: #fafafa;
 	border-top: solid #f3f3f3;
 	border-bottom: solid #f3f3f3;
+>>>>>>> d4cf48609d9fc42cc460a341d6b773c548364c53
 	padding: 0 0;
 }
 .footer p{

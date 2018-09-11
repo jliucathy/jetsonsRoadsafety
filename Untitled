@@ -48,25 +48,19 @@ var inputEnd = document.getElementById('end');
 var inputSelect = document.getElementById('select');
 var autocompleteStart = new google.maps.places.Autocomplete(inputStart);
 var autocompleteEnd = new google.maps.places.Autocomplete(inputEnd);
-autocompleteStart.addListener('place_changed', function() {
-    address = autocompleteStart.getPlace();
-});
-autocompleteEnd.addListener('place_changed', function() {
-    destination = autocompleteEnd.getPlace();
-});
 
 var value = new Array();
 var icons = new Array();
-icons[0] = "./images/top1.png";
-icons[1] = "./images/top2.png";
-icons[2] = "./images/top3.png";
-icons[3] = "./images/top4.png";
-icons[4] = "./images/top5.png";
-icons[5] = "./images/top6.png";
-icons[6] = "./images/top7.png";
-icons[7] = "./images/top8.png";
-icons[8] = "./images/top9.png";
-icons[9] = "./images/top10.png";
+icons[0] = "top1.png";
+icons[1] = "top2.png";
+icons[2] = "top3.png";
+icons[3] = "top4.png";
+icons[4] = "top5.png";
+icons[5] = "top6.png";
+icons[6] = "top7.png";
+icons[7] = "top8.png";
+icons[8] = "top9.png";
+icons[9] = "top10.png";
 
 function deleteMarkers() {
     //Loop through all the markers and remove
@@ -82,44 +76,83 @@ function deleteMarkers() {
 function initMap()
 //detect user's choice of search a positon or a route
 {
-    if (address.geometry) {
-        lat = address.geometry.location.lat();
-        lng = address.geometry.location.lng();
-        latMin = lat - 0.005;
-        latMax = lat + 0.005;
-        lngMin = lng - 0.005;
-        lngMax = lng + 0.005;
-        console.log(latMin);
-        console.log(latMax);
-        console.log(lngMin);
-        console.log(lngMax);
-        //after get start position's data, try destination one
-        if (destination.geometry) {
-            desLat = destination.geometry.location.lat();
-            desLng = destination.geometry.location.lng();
-            //zoom a bit to ensure surrounding is included
-            desLatMin = desLat - 0.005;
-            desLatMax = desLat + 0.005;
-            desLngMin = desLng - 0.005;
-            desLngMax = desLng + 0.005;
-            console.log(desLatMin);
-            console.log(desLatMax);
-            console.log(desLngMin);
-            console.log(desLngMax);
-            //after get two point's longtitude and lantitude, run myCallback
-            myTemp();
-        } else {
-            alert("Wrong address1!");
-        }
+    address = document.getElementById("start").value;
+    destination = document.getElementById("end").value;
+    //console.log(address);
+    //console.log(destination);
+    if (destination == "") {
+        singlePoint();
     } else {
-        alert("Wrong address2!");
+        withDes();
     }
 }
 
+function withDes()
+//if user search a route
+{
+    var geocoder;
+    var point;
+    geocoder = new google.maps.Geocoder();
+    address = document.getElementById("start").value;
+    destination = document.getElementById("end").value;
+    geocoder.geocode({
+        'address': address
+    }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            //if reveive google's information of start position, get latitude and longtitude of this position
+            lat = results[0].geometry.location.lat();
+            lng = results[0].geometry.location.lng();
+            //zoom a bit to ensure surrounding is included
+            latMin = lat - 0.005;
+            latMax = lat + 0.005;
+            lngMin = lng - 0.005;
+            lngMax = lng + 0.005;
+            console.log(latMin);
+            console.log(latMax);
+            console.log(lngMin);
+            console.log(lngMax);
+                            console.log("in 2geo");
+                              console.log("in 2geo");
+                                console.log("in 2geo");
+                                  console.log("in 2geo");
+            //after get start position's data, try destination one
+            geocoder2 = new google.maps.Geocoder();
+            geocoder2.geocode({
+                'address': destination
+            }, function(results, status) {
 
-function myTemp()
+                if (status == google.maps.GeocoderStatus.OK) {
+
+                    desLat = results[0].geometry.location.lat();
+                    desLng = results[0].geometry.location.lng();
+                    //zoom a bit to ensure surrounding is included
+                    desLatMin = desLat - 0.005;
+                    desLatMax = desLat + 0.005;
+                    desLngMin = desLng - 0.005;
+                    desLngMax = desLng + 0.005;
+                    console.log(desLatMin);
+                    console.log(desLatMax);
+                    console.log(desLngMin);
+                    console.log(desLngMax);
+                    //after get two point's longtitude and lantitude, run myCallback
+                    myCallback();
+                } else {
+                    alert("Wrong address!");
+                }
+            })
+        } else {
+            alert("Wrong address!");
+        }
+    })
+}
+
+function myCallback()
 //after get two point's longtitude and lantitude, use their zoom longtitude and latitude to select the largest rectangle on the map
 {
+  console.log("in myCallback");
+    console.log("in myCallback");
+      console.log("in myCallback");
+        console.log("in myCallback");
     finalLatMax = -9999;
     finalLatMin = 9999;
     if (finalLatMax < latMax) {
@@ -155,18 +188,49 @@ function myTemp()
     console.log(finalLngMax);
     //run search after get the largest rectangle area
 
-    searchAcc();
+    search111();
 }
 
-function searchAcc() {
+function singlePoint() {
+    //run when user only input their start position
+    var geocoder;
+    var point;
+    geocoder = new google.maps.Geocoder();
+    address = document.getElementById("start").value;
+    geocoder.geocode({
+        'address': address
+    }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            //if reveive google's information of start position, get latitude and longtitude of this position
+            lat = results[0].geometry.location.lat();
+            lng = results[0].geometry.location.lng();
+            //zoom a bit
+            finalLatMin = lat - 0.005;
+            finalLatMax = lat + 0.005;
+            finalLngMin = lng - 0.005;
+            finalLngMax = lng + 0.005;
+            console.log(finalLatMin);
+            console.log(finalLatMax);
+            console.log(finalLngMin);
+            console.log(finalLngMax);
+            //after get information run search
+            search111();
+        } else {
+            alert("Wrong Address!");
+        }
+    })
+}
+
+function search111() {
+  console.log("in search");
+    console.log("in search");
+      console.log("in search");
+        console.log("in search");
     var choice = document.getElementById('choice').value;
     var con_db;
     var cenlat = (finalLatMin + finalLatMax) / 2;
     var cenlng = (finalLngMin + finalLngMax) / 2;
-    map.setCenter({
-        lat: cenlat,
-        lng: cenlng
-    });
+    map.setCenter({lat:cenlat, lng:cenlng});
     map.setZoom(14);
     console.log("second");
     if (markers.length > 0) {
@@ -216,12 +280,14 @@ function searchAcc() {
                     nArray[pos] = nArray[pos] + 1;
                 }
             }
+
             console.log(tArray);
             console.log(nArray);
             //find max number of accident for first time and store
             for (var g = 0; g < 10; g++) {
                 findMax();
             }
+
             console.log(nArray);
             console.log(findMaxList);
             for (var i = 0; i < 10; i++) {
@@ -236,9 +302,13 @@ function searchAcc() {
                 for (var j = 0; j < topData[i].length; j++) {
                     places[i].push(new google.maps.LatLng(topData[i][j]['LATITUDE'], topData[i][j]['LONGITUDE']));
                 }
+
+
             }
+
             console.log(places);
             changeMarker();
+
             //make all results into string
             var paraString;
             stringList = new Array();
@@ -323,8 +393,6 @@ function changeMarker() {
                     icon: icons[i],
                     size: new google.maps.Size(5, 5)
                 });
-
-                console.log("mark 1 time");  
             }
         }
     }
