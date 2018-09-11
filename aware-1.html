@@ -181,7 +181,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCAtxZJdx5_gFA_B1nc8ehxvobMhurncg&libraries=places"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places"></script>
 
 		<script>
 		//-38.973,144.686,-37.848,145.36
@@ -252,11 +252,9 @@
 		//		var bounds = new google.maps.LatLngBounds(smalllatlng,largelatlng);
 		//		map.fitBounds(bounds);
 				var ercurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:erc_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng+
-										"&AUTH=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1waGlsbGlwcyIsImdpdmVuTmFtZSI6Ik1hcmMgUGhpbGxpcHMiLCJlbWFpbCI6Im1waGlsbGlwc0B2cmFwaS52aWNyb2Fkcy52aWMuZ292LmF1IiwiZXhwIjoxNTY1NjUxNTc0LCJzdWIiOiJ2aWNhcGkvbXBoaWxsaXBzLTU5Zjk1NTY5LTEzMzUtNGVjMC05YTMzLTk0YjIzZWEwMDRmMCJ9.UbOma6sRp8T2avwr_QbroGZG7x5ot9-0l1bDHrN9PLY";
+										smalllat+","+smalllng+","+biglat+","+biglng;
 				var rweurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:rwe_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng+
-										"&AUTH=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1waGlsbGlwcyIsImdpdmVuTmFtZSI6Ik1hcmMgUGhpbGxpcHMiLCJlbWFpbCI6Im1waGlsbGlwc0B2cmFwaS52aWNyb2Fkcy52aWMuZ292LmF1IiwiZXhwIjoxNTY1NjUxNTc0LCJzdWIiOiJ2aWNhcGkvbXBoaWxsaXBzLTU5Zjk1NTY5LTEzMzUtNGVjMC05YTMzLTk0YjIzZWEwMDRmMCJ9.UbOma6sRp8T2avwr_QbroGZG7x5ot9-0l1bDHrN9PLY";
+										smalllat+","+smalllng+","+biglat+","+biglng;
 		if(document.getElementById('erc').checked) {
 					$.ajax({
 						url: ercurl,
