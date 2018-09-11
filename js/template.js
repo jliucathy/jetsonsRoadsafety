@@ -9,13 +9,13 @@
 
 (function($){
 	$(document).ready(function(){
-	//	if($(window).width() < 991){
-	//		$(".banner-image").backstretch('images/safety-first-road-generic-c.jpg');
-//		}
-//		else{
-	//	$(".banner-image").backstretch(
-	//		[{ url: "https:\/\/www.youtube.com\/watch?v=tdf8AB5X5jE", mute: true }]
-	//	);
+		if($(window).width() < 780){
+			$(".banner-image").backstretch('images/RoadPic.jpg');
+		}
+	//	else{
+//		$(".banner-image").backstretch(
+//			[{ url: "https:\/\/www.youtube.com\/watch?v=tdf8AB5X5jE", mute: true }]
+//		);
 	//	$(".banner-image").backstretch('images/safety-first-road-generic-c.jpg');
 //	}
 

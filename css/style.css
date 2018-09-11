@@ -134,8 +134,10 @@ blockquote {
 }
 .banner-image{
 	vertical-align: middle;
-	min-height: 130%;
+	min-height: 125%;
 	width: 100%;
+	position: absolute;
+	margin-top: 0;
 }
 
 .slides{

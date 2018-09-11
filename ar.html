@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Street View Test</title>
+    <meta name="description" content="360&deg; Image Gallery - A-Frame">
+    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+   <script src="./setImg.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Web Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Font Awesome CSS -->
+  <link href="fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+  <!-- Plugins -->
+  <link href="css/animations.css" rel="stylesheet">
+
+  <!-- Worthy core CSS file -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- Custom css -->
+  <link href="css/custom.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+  function nextScene() {
+    document.getElementById('scene1').setAttribute('visible', 'true')
+    document.getElementById('scene2').setAttribute('visible', 'false')
+  }
+
+  AFRAME.registerComponent('navigate-on-click', {
+    schema: {
+      url: {default: ''}
+    },
+
+    init: function () {
+      var data = this.data;
+      var el = this.el;
+
+      el.addEventListener('click', function () {
+        window.location.href = data.url;
+      });
+    }
+  });
+
+  function alertFun(){
+    alert("Wrong answer!")
+  }
+  </script>
+      <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+  		<!-- header start -->
+  		<!-- ================ -->
+  		<header class="header fixed clearfix navbar navbar-fixed-top">
+  			<div class="container">
+  				<div class="row">
+  						<div class="col-md-4">
+  						<!-- header-left start -->
+  						<!-- ================ -->
+  						<div class="header-left clearfix">
+
+  							<!-- logo -->
+
+  							<!-- name-and-slogan -->
+  							<div class="site-name-and-slogan smooth-scroll">
+  								<div class="btn btn-default" style="margin:20px"><a href="aware-1.html">BACK</a></div>
+  							</div>
+
+  						</div>
+  						<!-- header-left end -->
+  					</div>
+  					<div class="col-md-8">
+
+  						<!-- header-right start -->
+  						<!-- ================ -->
+  						<div class="header-right clearfix">
+  							<!-- main-navigation start -->
+  							<!-- ================ -->
+  							<div class="main-navigation animated">
+  								<!-- navbar start -->
+  								<!-- ================ -->
+  								<nav class="navbar navbar-default" role="navigation">
+  									<div class="container-fluid">
+  										 <h3 class="visible-xs visible-sm" style="color:white">WHICH CAR HAS THE RIGHT OF WAY</h3>
+  										<div class="navbar-header">
+                        <!--
+  											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+  												<span class="sr-only">Toggle navigation</span>
+  												<span class="icon-bar"></span>
+  												<span class="icon-bar"></span>
+  												<span class="icon-bar"></span>
+  											</button> -->
+  										</div>
+  										<!-- Collect the nav links, forms, and other content for toggling -->
+  										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+  											<ul class="nav navbar-nav navbar-right">
+  												<h1 style="color:white">WHICH CAR HAS THE RIGHT OF WAY</h1>
+  											</ul>
+  										</div>
+  									</div>
+  								</nav>
+  								<!-- navbar end -->
+
+  							</div>
+  							<!-- main-navigation end -->
+
+  						</div>
+  						<!-- header-right end -->
+
+  					</div>
+  				</div>
+  			</div>
+  		</header>
+    <a-scene>
+     <!-- <a-assets> -->
+        <img id="city" crossorigin="anonymous" src="http://43.240.99.176/roadsafe/images/test1.png">
+        <img id="city-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg" >
+        <!--<img id="cubes-thumb" crossorigin="anonymous" src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"> -->
+        <img id="sechelt-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg" >
+        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+        <!--<img id="cubes" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg"> -->
+        <img id="sechelt" crossorigin="anonymous" src="http://43.240.99.176/roadsafe/images/test2.png">
+
+
+        <!-- Image link template to be reused. -->
+        <script id="link" type="text/html">
+          <a-entity class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1 1 1"
+            event-set__3="_event: mouseenter; scale: 1 1 1"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            set-image="on: click; target: #image-360; src: ${src}"
+            sound="on: click; src: #click-sound"></a-entity>
+        </script>
+   <!--   </a-assets> -->
+      <!-- 360-degree image. -->
+      <a-sky id="image-360"  src="#city" ></a-sky>
+        <!--event-set__enter="_event: mouseenter; color: #026fc9"
+         event-set__leave="_event: mouseleave; color: #4CC3D9" -->
+
+      <!-- Image links. -->
+   <!--   <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+        <a-entity id="links" template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb" scale="0.5 0.5 0.5" position="1.2 -2 -1" alphaTest="0.5" navigate-on-click="url: http://43.240.99.176/roadsafe/aware-1.html" ></a-entity> -->
+<a-entity id="scene2" visible="true">
+        <a-entity id="links" template="src: #link" data-src="#city" data-thumb="#city-thumb"  scale="0.75 0.75 0.75" position="4.8 -0.8 -4.5" onclick="alertFun()"></a-entity>
+        <a-entity id="links" template="src: #link" data-src="#sechelt"  scale="0.5 0.5 0.5" data-thumb="#sechelt-thumb" position="3 -1.5 -2.5" onclick="nextScene()"></a-entity>
+      </a-entity>
+      <a-entity id="scene1" visible="false">
+              <a-entity id="links" template="src: #link" data-src="#sechelt" data-thumb="#city-thumb"  scale="0.5 0.5 0.5" position="0 -1.5 -2.5" onclick="alertFun()"></a-entity>
+              <a-entity id="links" template="src: #link" data-src="#city"  scale="0.5 0.5 0.5" data-thumb="#sechelt-thumb" position="1.5 -1 -4.5" navigate-on-click="url: http://43.240.99.176/roadsafe/aware-1.html" ></a-entity>
+            </a-entity>
+
+      <!-- Camera + cursor. -->
+      <a-entity camera="" look-controls cursor="rayOrigin: mouse">
+      <a-cursor id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: springgreen"
+          event-set__2="_event: mouseleave; color: black"
+          fuse="true"
+          raycaster="objects: .link"></a-cursor>
+      </a-entity>
+    </a-scene>
+
+  </body>
+</html>

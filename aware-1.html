@@ -95,7 +95,7 @@
 											<ul class="nav navbar-nav navbar-right">
 												<li class="active"><a href="index.html">Home</a></li>
 												<li><a href="info.html">GET INFORMED</a></li>
-												<li><a href="aware.html">BECOME AWARE</a></li>
+												<li><a href="aware-1.html">BECOME AWARE</a></li>
 												<li><a href="contact.html">CONTACT</a></li>
 												<li><a href="about.html">ABOUT US</a></li>
 											</ul>
@@ -164,19 +164,24 @@
 				<h2 class="text-center">Check surroundings</h2>
 				<div class="row">
 					<div class="col-md-6"/>
+						<p>Any where near me closed?</p>
       			<input type="text" id="startpoint" placeholder="Your location" width="80%" required/>
 						<br/>
 						<br/>
 						<input type="radio" id="erc" name="vic">Emergency Road Closure Points<br/>
   					<input type="radio" id="rwe" name="vic">Roadworks and Events<br/>
 						<br/>
+						<p>Any where I can park my car?</p>
+						<input type="radio" id="park" name="vic">Car park<br/>
+			<!--			<p>Any where I can practice?</p>
+						<input type="radio" id="park" name="vic">P<br/> -->
 						<input class="btn btn-default" type="button" onClick="vis()" value="SEARCH" >
 			</div>
 				<div id="map" class="col-md-6"></div>
 			</div>
 		</div>
 	</div>
-	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCAtxZJdx5_gFA_B1nc8ehxvobMhurncg&libraries=places"></script>
 
 		<script>
 		//-38.973,144.686,-37.848,145.36
@@ -247,10 +252,12 @@
 		//		var bounds = new google.maps.LatLngBounds(smalllatlng,largelatlng);
 		//		map.fitBounds(bounds);
 				var ercurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:erc_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng;
+										smalllat+","+smalllng+","+biglat+","+biglng+
+										"&AUTH=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1waGlsbGlwcyIsImdpdmVuTmFtZSI6Ik1hcmMgUGhpbGxpcHMiLCJlbWFpbCI6Im1waGlsbGlwc0B2cmFwaS52aWNyb2Fkcy52aWMuZ292LmF1IiwiZXhwIjoxNTY1NjUxNTc0LCJzdWIiOiJ2aWNhcGkvbXBoaWxsaXBzLTU5Zjk1NTY5LTEzMzUtNGVjMC05YTMzLTk0YjIzZWEwMDRmMCJ9.UbOma6sRp8T2avwr_QbroGZG7x5ot9-0l1bDHrN9PLY";
 				var rweurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:rwe_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng;
-				if(document.getElementById('erc').checked) {
+										smalllat+","+smalllng+","+biglat+","+biglng+
+										"&AUTH=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1waGlsbGlwcyIsImdpdmVuTmFtZSI6Ik1hcmMgUGhpbGxpcHMiLCJlbWFpbCI6Im1waGlsbGlwc0B2cmFwaS52aWNyb2Fkcy52aWMuZ292LmF1IiwiZXhwIjoxNTY1NjUxNTc0LCJzdWIiOiJ2aWNhcGkvbXBoaWxsaXBzLTU5Zjk1NTY5LTEzMzUtNGVjMC05YTMzLTk0YjIzZWEwMDRmMCJ9.UbOma6sRp8T2avwr_QbroGZG7x5ot9-0l1bDHrN9PLY";
+		if(document.getElementById('erc').checked) {
 					$.ajax({
 						url: ercurl,
 						datatype:'json',
