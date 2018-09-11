@@ -107,6 +107,7 @@ blockquote {
 	border-left: none;
 	padding-left: 0;
 	padding-right: 0;
+	height: 150px;
 }
 .title {
 	margin-top: 0;
@@ -117,7 +118,7 @@ blockquote {
 .header {
 	color: #ffffff;
 	background-color: rgba(0, 0, 0, 0.10);
-	padding: 10px 0;
+	padding: 5px 0;
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
@@ -128,13 +129,18 @@ blockquote {
 	width: 100%;
 	height: 100%;
 	min-height: 100%;
-	position: relative;
 	color: #fff;
+	right: 0;
 }
 .banner-image{
 	vertical-align: middle;
-	min-height: 100%;
+	min-height: 130%;
 	width: 100%;
+}
+
+.slides{
+	width: 521px;
+	height: 449px;
 }
 .banner-image-contact{
 	vertical-align: middle;
@@ -184,10 +190,25 @@ blockquote {
 }
 .subfooter {
 	background-color: #fafafa;
+<<<<<<< HEAD
 	border-top: 1px solid #f3f3f3;
 	border-bottom: 1px solid #f3f3f3;
+=======
+	border-top: solid #f3f3f3;
+	border-bottom: solid #f3f3f3;
 	padding: 0 0;
 }
+.footer {
+	background-color: #fafafa;
+	border-top: solid #f3f3f3;
+	border-bottom: solid #f3f3f3;
+>>>>>>> d4cf48609d9fc42cc460a341d6b773c548364c53
+	padding: 0 0;
+}
+.footer p{
+	font-size: 15px;
+}
+
 .section {
 	background-color:#0ffffff;
 	padding: 80px 0;
@@ -198,6 +219,14 @@ blockquote {
 .default-bg {
 	background-color: #708090;
 	color: 	#ff8c00;
+}
+.default-bg-index {
+	background-color: 	#000000;
+	color: 	#ffffff;
+}
+.default-bg-slides {
+	background-color: #deb887;
+	color: 	#ffffff;
 }
 .default-bg.blue {
 	background-color: #55acee;
@@ -344,14 +373,26 @@ blockquote {
 	transition: all 0.2s ease-in-out;
 }
 .btn-default {
-	color: #55acee;
+	color: #ff8c00;
 	border: 1px solid #cccccc;
 }
 .btn-default:hover {
 	color: #ffffff;
-	background-color: #339BEB;
-	border-color: #339BEB;
+	background-color:#ff8c00;
+	border-color: #ff8c00;
 }
+.btn-index{
+	margin:0px auto;
+	display:block;
+}
+.column_center {
+	display: inline-block;
+  padding: 20px 100px;
+}
+#map {
+        width: 500px;
+				height: 400px;
+      }
 
 /* Collapse
 ---------------------------------- */
@@ -436,6 +477,12 @@ blockquote {
 
 /* Forms
 ---------------------------------- */
+.form-control-location{
+	height: 45px;
+	border-radius: 10px;
+	margin: 0 auto;
+	display: block;
+}
 .form-control {
 	height: 45px;
 	-webkit-border-radius: 0px;
@@ -446,7 +493,7 @@ blockquote {
 	color: #cccccc;
 }
 .has-feedback label.sr-only ~ .form-control-feedback {
-	top: 15px;
+	top: 5px;
 }
 textarea {
 	resize: vertical;
@@ -502,10 +549,10 @@ textarea {
 	border: none;
 }
 .main-navigation .navbar-default .navbar-nav > li > a {
-	color: #fff;
-	padding: 10px 20px;
+	color: #FFFFFF;
+	padding: 5px 10px;
 	font-size: 18px;
-	font-weight: 300;
+	font-weight: 500;
 }
 .main-navigation .navbar-default .navbar-nav > li.active > a {
 	background-color: transparent;
@@ -517,7 +564,7 @@ textarea {
 }
 @media (min-width:768px) {
 	.main-navigation .navbar-default .navbar-nav > li > a {
-		padding-top: 30px;
+		padding-top: 25px;
 		padding-bottom: 30px;
 		-webkit-transition: all 0.3s ease-in-out;
 		-moz-transition: all 0.3s ease-in-out;
@@ -529,13 +576,13 @@ textarea {
 @media (min-width:768px) and (max-width:991px) {
 	.main-navigation .container-fluid {
 		padding-left: 0;
-		padding-right: 0;
+		padding-right: 70px;
 	}
 	.navbar-nav {
-		float: left !important;
+		float: none !important;
 	}
 }
-@media (max-width:767px) {
+@media (max-width:768px) {
 	.header.navbar-fixed-top {
 		position: absolute;
 	}
@@ -545,10 +592,10 @@ textarea {
 ----------------------------------------------------------------------------- */
 .fixed-header-on .header {
 	background-color: rgba(0, 0, 0, 0.95);
-	padding: 5px 0;
+	padding: 20px 0;
 }
 .fixed-header-on .site-name {
-	font-size: 24px;
+	font-size: 40px;
 }
 .fixed-header-on .logo {
 	-webkit-transform: scale(0.8);
@@ -587,12 +634,7 @@ textarea {
 	float: left;
 }
 .site-name {
-	font-size: 50px;
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	-ms-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
+	font-size: 40px;
 }
 .site-name a {
 	color: #ffffff;
@@ -603,6 +645,8 @@ textarea {
 .site-slogan {
 	font-size: 12px;
 }
+.navbar-default .navbar-toggle{right: 0;}
+
 
 /* Testimonials
 ---------------------------------- */

@@ -33,6 +33,9 @@
 
 		<!-- Custom css -->
 		<link href="css/custom.css" rel="stylesheet">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 	</head>
 
 	<body class="no-trans">
@@ -155,74 +158,164 @@
 			</div>
 		</div>
 
-<div class="container">
-	<div class="row">
-		<h2 class="text-center">Check your trip</h2>
-		<div class="row">
-
-
-		 </form>
- 						 <form name="single" action="" method=""  style="position:relative;top:0px;left:30px;">
-							 <label for="start", style="position:relative;top:0px;left:200px;",>Your position</label>
-							  <input type="text" name="test" id="start", style="position:relative;top:0px;left:200px;",>
-							  <label for="end", style="position:relative;top:0px;left:250px;">Your destination</label>
-							  <input type="text" name="test" id="end", style="position:relative;top:0px;left:250px;",>
-								 <td  width="10"><select name="questionID" id="choice" style="position:relative;top:0px;left:270px;">
-
- 										<option value="fatal">Fatal</option>
- 										<option value="serious">Serious injurd</option>
- 										<option value="other">Other injurd</option>
- 									 </select>
- 								 </td>
- 							</tr>
-							 <input class="btn btn-default" type="button" onclick="initMap()" style="position:relative;top:0px;left:300px;">
- 					 </form>
-
-
-
-
-			        </form>
-			         <form name="checkbox" id="checkbox" action="" method=""  style="position:absolute;top:200px;left:30px;visibility: hidden">
-			             <label for="hobby">Markers:
-						<input type="checkbox" name="top" checked value="1" onclick="changeMarker()"/>top1
-						<input type="checkbox" name="top" checked value="2" onclick="changeMarker()"/>top2
-						<input type="checkbox" name="top" checked value="3" onclick="changeMarker()"/>top3
-						<input type="checkbox" name="top" checked value="4" onclick="changeMarker()"/>top4
-						<input type="checkbox" name="top" checked value="5" onclick="changeMarker()"/>top5
-						<input type="checkbox" name="top" value="6" onclick="changeMarker()"/>top6
-						<input type="checkbox" name="top" value="7" onclick="changeMarker()"/>top7
-						<input type="checkbox" name="top" value="8" onclick="changeMarker()"/>top8
-						<input type="checkbox" name="top" value="9" onclick="changeMarker()"/>top9
-						<input type="checkbox" name="top" value="10" onclick="changeMarker()"/>top10
-
-					</label>
-			       </form>
-						 <div id="map" style="position:relative;top:350px;height:400px;width:700px;top:15px;left:0px;"></div>
-						 <form name="single" action="" method=""  style="position:relative;top:-380px;left:720px;">
-								 <td  width="100">
-										 <div id='para'>If you want to search area around you, please leave deatination blank empty.</div>
-								 </td>
-							</tr>
-					 </form>
+		<div class="space"></div>
+		<div class="container">
+			<div class="row">
+				<h2 class="text-center">Check surroundings</h2>
+				<div class="row">
+					<div class="col-md-6"/>
+      			<input type="text" id="startpoint" placeholder="Your location" width="80%" required/>
+						<br/>
+						<br/>
+						<input type="radio" id="erc" name="vic">Emergency Road Closure Points<br/>
+  					<input type="radio" id="rwe" name="vic">Roadworks and Events<br/>
+						<br/>
+						<input class="btn btn-default" type="button" onClick="vis()" value="SEARCH" >
+			</div>
+				<div id="map" class="col-md-6"></div>
+			</div>
 		</div>
 	</div>
-</div>
-		<!-- script map -->
-		<!-- ================ -->
+	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places"></script>
+
+		<script>
+		//-38.973,144.686,-37.848,145.36
+		var map = new google.maps.Map(document.getElementById("map"), {
+  					zoom: 10,
+  					center: new google.maps.LatLng(-37.8136,144.9631),
+  					mapTypeId: google.maps.MapTypeId.TERRAIN,
+          	zoomControl: true,
+          	zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_TOP
+          },
+          scaleControl: true,
+          streetViewControl: true,
+          streetViewControlOptions: {
+              position: google.maps.ControlPosition.LEFT_TOP
+          }
+				});
+				var LatLngercs=[];
+				var LatLngrwes=[];
+				var markers=[];
+				var begin=document.getElementById("startpoint");
+		//		var dest=document.getElementById("endpoint");
+				var option= {
+    				componentRestrictions: {country: 'au'}
+  			};
+				var place;
+				var autocompleteStart = new google.maps.places.Autocomplete(begin,option);
+  //      var autocompleteEnd = new google.maps.places.Autocomplete(dest,option);
+				autocompleteStart.addListener('place_changed', function() {
+													place = autocompleteStart.getPlace();
+												});
+
+		function vis(){
+			clearMarkers();
+			var lattemp1u;
+			var lngtemp1u;
+		var geocoder = new google.maps.Geocoder();
+		var begintemp=document.getElementById("startpoint").value;
+		if (begintemp.match(/^[a-zA-Z0-9,\s]{2,100}$/)==null){
+					alert('Please enter an address name between 2-100 letters or use autorefill');
+		}
+		else{
+			geocoder.geocode( { 'address': begintemp}, function(results, status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+				 lattemp1u = results[0].geometry.location.lat();
+          lngtemp1u = results[0].geometry.location.lng();}
+			});
+			if (place.geometry) {
+				lattemp1u=place.geometry.location.lat();
+				lngtemp1u=place.geometry.location.lng();
+			}
+			var temp1=isNaN(lattemp1u);
+			var temp2=isNaN(lngtemp1u);
+			if (!temp1 && !temp2){
+				var lattemp1=lattemp1u.toPrecision(5);
+				var lngtemp1=lngtemp1u.toPrecision(5);
+				map.setCenter(new google.maps.LatLng(lattemp1,lngtemp1));
+				map.setZoom(14);
+				var bounds = map.getBounds();
+				var ne = bounds.getNorthEast();
+				var sw = bounds.getSouthWest();
+		var smalllat=sw.lat().toPrecision(5);//-38.973;
+		var smalllng=sw.lng().toPrecision(5);//144.686;
+		var biglat=ne.lat().toPrecision(5);//-37.848;
+		var biglng=ne.lng().toPrecision(5);//145.36;
+		//		var smalllatlng = new google.maps.LatLng(smalllat,smalllng);
+		//		var largelatlng = new google.maps.LatLng(biglat,biglng);
+		//		var bounds = new google.maps.LatLngBounds(smalllatlng,largelatlng);
+		//		map.fitBounds(bounds);
+				var ercurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:erc_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
+										smalllat+","+smalllng+","+biglat+","+biglng;
+				var rweurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:rwe_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
+										smalllat+","+smalllng+","+biglat+","+biglng;
+				if(document.getElementById('erc').checked) {
+					$.ajax({
+						url: ercurl,
+						datatype:'json',
+						async: false,
+						success:function(data) {
+												data.features.forEach(function (ln){
+													var lng=ln.geometry.coordinates[0];//0long& 1lat
+													var lat=ln.geometry.coordinates[1];
+													var latlng = new google.maps.LatLng(lat,lng);
+													LatLngercs.push(latlng);
+													console.log(ln.properties.closed_road_name);
+												})
+											},
+							error:function(){ throw error;}
+									});
+									var imaage="./images/info.png";
+									LatLngercs.forEach(function(LatLngerc) {
+										var marker = new google.maps.Marker({
+											position: LatLngerc,
+											icon: imaage,
+											map: map
+										});
+										markers.push(marker);
+									});
+				}
+		if(document.getElementById('rwe').checked) {
+			$.ajax({
+						url: rweurl,
+						datatype:'json',
+						async: false,
+						success:function(data) {
+												data.features.forEach(function (ln){
+													var lng=ln.geometry.coordinates[0];//0long& 1lat
+													var lat=ln.geometry.coordinates[1];
+													var latlng = new google.maps.LatLng(lat,lng);
+													LatLngrwes.push(latlng);
+													console.log(ln.properties.subject_pref_rdname);})
+											},
+							error:function(){ throw error;}});
+					var imaage="./images/beachflag.png";
+					LatLngrwes.forEach(function(LatLngrwe) {
+						var marker = new google.maps.Marker({
+							position: LatLngrwe,
+							icon: imaage,
+							map: map});
+						markers.push(marker);
+					});
+		}
+	}
+	else{
+	 alert('No such address');
+ }
+	}
+	}
+function clearMarkers() {
+	for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+	}
+  markers = [];
+	LatLngercs=[];
+	LatLngrwes=[];
+}
+	</script>
 
 
-<<<<<<< HEAD
-		<!-- .footer start -->
-		<!-- ================ -->
-			<footer id="footer">
-				<div class="footer">
-			<div class="subfooter">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<p class="text-center">@TeamJetsons</p>
-						</div>
-=======
 		<footer id="footer">
 			<!-- .footer start -->
 			<div class="footer">
@@ -243,7 +336,6 @@
 							<p>young drivers and help them be better</p>
 							<p>informed when on the road.</p>
 						</blockquote>
->>>>>>> d4cf48609d9fc42cc460a341d6b773c548364c53
 					</div>
 				</div>
 				<div class ="col-md-6">
@@ -271,14 +363,9 @@
 		</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-		</footer>
-		<!-- footer end -->
-=======
 		<!-- .subfooter end -->
 	</footer>
 	<!-- footer end -->
->>>>>>> d4cf48609d9fc42cc460a341d6b773c548364c53
 
 		<!-- JavaScript files placed at the end of the document so the pages load faster
 		================================================== -->
@@ -303,13 +390,6 @@
 
 		<!-- Custom Scripts -->
 		<script type="text/javascript" src="js/custom.js"></script>
-		<script src="https://d3js.org/d3.v4.min.js"></script>
- 	 	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
-
- 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 	 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0EkewcmCRjGc5sk56DBdFc_zyJFj2mHc&libraries=places"></script>
- 	 	<script type="text/javascript" src="test.js"></script>
 
 	</body>
 </html>
