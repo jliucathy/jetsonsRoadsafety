@@ -173,11 +173,20 @@ blockquote {
 	width: 100%;
 	z-index: 2;
 }
+.footer {
+	background-color: #fafafa;
+	border-top: 1px solid #f3f3f3;
+	border-bottom: 1px solid #f3f3f3;
+	padding: 0 0;
+}
+.footer{
+	font-size: 15px;
+}
 .subfooter {
 	background-color: #fafafa;
 	border-top: 1px solid #f3f3f3;
 	border-bottom: 1px solid #f3f3f3;
-	padding: 40px 0;
+	padding: 0 0;
 }
 .section {
 	background-color:#0ffffff;

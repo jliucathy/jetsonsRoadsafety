@@ -155,7 +155,58 @@
 			</div>
 		</div>
 
+<div class="container">
+	<div class="row">
+		<h2 class="text-center">Check your trip</h2>
+		<div class="row">
 
+
+		 </form>
+ 						 <form name="single" action="" method=""  style="position:relative;top:0px;left:30px;">
+							 <label for="start", style="position:relative;top:0px;left:200px;",>Your position</label>
+							  <input type="text" name="test" id="start", style="position:relative;top:0px;left:200px;",>
+							  <label for="end", style="position:relative;top:0px;left:250px;">Your destination</label>
+							  <input type="text" name="test" id="end", style="position:relative;top:0px;left:250px;",>
+								 <td  width="10"><select name="questionID" id="choice" style="position:relative;top:0px;left:270px;">
+
+ 										<option value="fatal">Fatal</option>
+ 										<option value="serious">Serious injurd</option>
+ 										<option value="other">Other injurd</option>
+ 									 </select>
+ 								 </td>
+ 							</tr>
+							 <input class="btn btn-default" type="button" onclick="initMap()" style="position:relative;top:0px;left:300px;">
+ 					 </form>
+
+
+
+
+			        </form>
+			         <form name="checkbox" id="checkbox" action="" method=""  style="position:absolute;top:200px;left:30px;visibility: hidden">
+			             <label for="hobby">Markers:
+						<input type="checkbox" name="top" checked value="1" onclick="changeMarker()"/>top1
+						<input type="checkbox" name="top" checked value="2" onclick="changeMarker()"/>top2
+						<input type="checkbox" name="top" checked value="3" onclick="changeMarker()"/>top3
+						<input type="checkbox" name="top" checked value="4" onclick="changeMarker()"/>top4
+						<input type="checkbox" name="top" checked value="5" onclick="changeMarker()"/>top5
+						<input type="checkbox" name="top" value="6" onclick="changeMarker()"/>top6
+						<input type="checkbox" name="top" value="7" onclick="changeMarker()"/>top7
+						<input type="checkbox" name="top" value="8" onclick="changeMarker()"/>top8
+						<input type="checkbox" name="top" value="9" onclick="changeMarker()"/>top9
+						<input type="checkbox" name="top" value="10" onclick="changeMarker()"/>top10
+
+					</label>
+			       </form>
+						 <div id="map" style="position:relative;top:350px;height:400px;width:700px;top:15px;left:0px;"></div>
+						 <form name="single" action="" method=""  style="position:relative;top:-380px;left:720px;">
+								 <td  width="100">
+										 <div id='para'>If you want to search area around you, please leave deatination blank empty.</div>
+								 </td>
+							</tr>
+					 </form>
+		</div>
+	</div>
+</div>
 		<!-- script map -->
 		<!-- ================ -->
 
@@ -163,15 +214,17 @@
 		<!-- .footer start -->
 		<!-- ================ -->
 			<footer id="footer">
+				<div class="footer">
 			<div class="subfooter">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<p class="text-center">Copyright © 2014 Worthy by <a target="_blank" href="http://htmlcoder.me">HtmlCoder</a>.</p>
+							<p class="text-center">@TeamJetsons</p>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</footer>
 		<!-- footer end -->
 
@@ -198,6 +251,13 @@
 
 		<!-- Custom Scripts -->
 		<script type="text/javascript" src="js/custom.js"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+ 	 	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+
+ 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 	 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0EkewcmCRjGc5sk56DBdFc_zyJFj2mHc&libraries=places"></script>
+ 	 	<script type="text/javascript" src="test.js"></script>
 
 	</body>
 </html>
