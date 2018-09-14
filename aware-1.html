@@ -5,7 +5,7 @@
 <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<title>Plan - Keep Safe</title>
+		<title>Find Place - Keep Safe</title>
 		<meta name="description" content="Worthy a Bootstrap-based, Responsive HTML5 Template">
 		<meta name="author" content="htmlcoder.me">
 
@@ -95,9 +95,9 @@
 											<ul class="nav navbar-nav navbar-right">
 												<li class="active"><a href="index.html">Home</a></li>
 												<li><a href="info.html">GET INFORMED</a></li>
-												<li><a href="aware-1.html">BECOME AWARE</a></li>
+												<li><a href="aware-1.html">FIND PLACE</a></li>
+												<li><a href="aware.html">CHECK YOUR TRIP</a></li>
 												<li><a href="contact.html">CONTACT</a></li>
-												<li><a href="about.html">ABOUT US</a></li>
 											</ul>
 										</div>
 
@@ -125,7 +125,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 object-non-visible" data-animation-effect="fadeIn">
-							<h1 class="text-center">Become Aware</h1>
+							<h1 class="text-center">FIND PLACE TO PRACTISE DRIVING</h1>
 						</div>
 					</div>
 				</div>
@@ -136,24 +136,9 @@
 		<div class="default-bg space">
 			<div class="container">
 				<div class="row">
-						<h1 class="text-center">GET REASONS WHY ACCIDENTS HAPPENED</h1>
-				</div>
-				<div class="space"></div>
-				<div class="row">
-					<div class="col-md-6">
-						<h3 class="text-center">You can get the list of reasons why accidents</h3>
-						<h3 class="text-center">occurred in your surrounding areas when</h3>
-						<h3 class="text-center">you enter one location</h3>
-							<div class="space"></div>
-						<h2 class="text-center">Check surroundings</h2>
-					</div>
-					<div class="col-md-6">
-						<h3 class="text-center">By entering two addresses, you could get</h3>
-						<h3 class="text-center">the list of reasons why accidents occurred</h3>
-						<h3 class="text-center">between the two addresses</h3>
-							<div class="space"></div>
-						<h2 class="text-center">Check your trip</h2>
-					</div>
+						<h3 class="text-center">You can find a plce to pratise driving within 10 or 20 miles from the entered location</h3>
+						<h3 class="text-center">OR</h3>
+						<h3 class="text-center">You can choose a place without any disturbing things to pra driving</h3>
 				</div>
 			</div>
 		</div>
@@ -161,27 +146,29 @@
 		<div class="space"></div>
 		<div class="container">
 			<div class="row">
-				<h2 class="text-center">Check surroundings</h2>
+				<h2 class="text-center">FIND PLACE</h2>
 				<div class="row">
 					<div class="col-md-6"/>
-						<p>Any where near me closed?</p>
       			<input type="text" id="startpoint" placeholder="Your location" width="80%" required/>
 						<br/>
+						<input type="radio" id="z2" name="radius">10 miles<br/>
+						<input type="radio" id="z5" name="radius">20 miles<br/>
 						<br/>
-						<input type="radio" id="erc" name="vic">Emergency Road Closure Points<br/>
-  					<input type="radio" id="rwe" name="vic">Roadworks and Events<br/>
+						<p>Any where I can practice?</p>
+						<input type="radio" id="pra" name="vic">Suggested place(s) to practise driving<br/>
 						<br/>
-						<p>Any where I can park my car?</p>
-						<input type="radio" id="park" name="vic">Car park<br/>
-			<!--			<p>Any where I can practice?</p>
-						<input type="radio" id="park" name="vic">P<br/> -->
+						<p>If you want to find a plcae yourself, your can see:<br/>Places near me can affect driving practice</p>
+						<input type="radio" id="erc" name="vic">Emergency closed point<br/>
+  					<input type="radio" id="rwe" name="vic">Closed lines due to Roadworks and Events<br/>
+			<!--			<input type="radio" id="rwe" name="vic">Previous accidents<br/> -->
+						<br/>
 						<input class="btn btn-default" type="button" onClick="vis()" value="SEARCH" >
 			</div>
 				<div id="map" class="col-md-6"></div>
 			</div>
 		</div>
 	</div>
-	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places,geometry"></script>
 
 		<script>
 		//-38.973,144.686,-37.848,145.36
@@ -202,6 +189,8 @@
 				var LatLngercs=[];
 				var LatLngrwes=[];
 				var markers=[];
+				var acciMarkers=[];
+				var park=[];
 				var begin=document.getElementById("startpoint");
 		//		var dest=document.getElementById("endpoint");
 				var option= {
@@ -211,23 +200,26 @@
 				var autocompleteStart = new google.maps.places.Autocomplete(begin,option);
   //      var autocompleteEnd = new google.maps.places.Autocomplete(dest,option);
 				autocompleteStart.addListener('place_changed', function() {
-													place = autocompleteStart.getPlace();
-												});
-
+										place = autocompleteStart.getPlace();
+									});
+				var smalllat;//-38.973;
+				var smalllng;//144.686;
+				var biglat;//-37.848;
+				var biglng;
+				var lattemp1u;
+				var lngtemp1u;
 		function vis(){
 			clearMarkers();
-			var lattemp1u;
-			var lngtemp1u;
 		var geocoder = new google.maps.Geocoder();
 		var begintemp=document.getElementById("startpoint").value;
 		if (begintemp.match(/^[a-zA-Z0-9,\s]{2,100}$/)==null){
-					alert('Please enter an address name between 2-100 letters or use autorefill');
+			alert('Please enter an address name between 2-100 letters or use autorefill');
 		}
 		else{
 			geocoder.geocode( { 'address': begintemp}, function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
-				 lattemp1u = results[0].geometry.location.lat();
-          lngtemp1u = results[0].geometry.location.lng();}
+			if (status == google.maps.GeocoderStatus.OK) {
+				lattemp1u = results[0].geometry.location.lat();
+				lngtemp1u = results[0].geometry.location.lng();}
 			});
 			if (place.geometry) {
 				lattemp1u=place.geometry.location.lat();
@@ -236,80 +228,150 @@
 			var temp1=isNaN(lattemp1u);
 			var temp2=isNaN(lngtemp1u);
 			if (!temp1 && !temp2){
-				var lattemp1=lattemp1u.toPrecision(5);
-				var lngtemp1=lngtemp1u.toPrecision(5);
-				map.setCenter(new google.maps.LatLng(lattemp1,lngtemp1));
-				map.setZoom(14);
+			var lattemp1=lattemp1u.toPrecision(5);
+			var lngtemp1=lngtemp1u.toPrecision(5);
+			var centerPoint=new google.maps.LatLng(lattemp1,lngtemp1);
+			map.setCenter(centerPoint);
+			var marker = new google.maps.Marker({
+				position: centerPoint,
+				icon: imaage,
+				map: map});
+				if(!document.getElementById('z5').checked){
+					document.getElementById("z2").checked = true;
+					map.setZoom(13);
+				}
+				if(document.getElementById('z5').checked){
+					map.setZoom(11);}
+//		var accuracy = 5;
+//		var circle = new google.maps.Circle({
+//                 center: map.getCenter(),
+//                 radius: accuracy
+//             });
+//		var bounds = circle.getBounds();
 				var bounds = map.getBounds();
 				var ne = bounds.getNorthEast();
 				var sw = bounds.getSouthWest();
-		var smalllat=sw.lat().toPrecision(5);//-38.973;
-		var smalllng=sw.lng().toPrecision(5);//144.686;
-		var biglat=ne.lat().toPrecision(5);//-37.848;
-		var biglng=ne.lng().toPrecision(5);//145.36;
-		//		var smalllatlng = new google.maps.LatLng(smalllat,smalllng);
-		//		var largelatlng = new google.maps.LatLng(biglat,biglng);
-		//		var bounds = new google.maps.LatLngBounds(smalllatlng,largelatlng);
-		//		map.fitBounds(bounds);
-				var ercurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:erc_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng;
-				var rweurl="http:\/\/api.vicroads.vic.gov.au/vicroads/wfs?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAMES=vicroads:rwe_point&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&BBOX="+
-										smalllat+","+smalllng+","+biglat+","+biglng;
-		if(document.getElementById('erc').checked) {
-					$.ajax({
-						url: ercurl,
-						datatype:'json',
-						async: false,
-						success:function(data) {
-												data.features.forEach(function (ln){
-													var lng=ln.geometry.coordinates[0];//0long& 1lat
-													var lat=ln.geometry.coordinates[1];
-													var latlng = new google.maps.LatLng(lat,lng);
-													LatLngercs.push(latlng);
-													console.log(ln.properties.closed_road_name);
-												})
-											},
+				smalllat=sw.lat().toPrecision(5);//-38.973;
+				smalllng=sw.lng().toPrecision(5);//144.686;
+				biglat=ne.lat().toPrecision(5);//-37.848;
+				biglng=ne.lng().toPrecision(5);//145.36;
+				if(document.getElementById('rwe').checked) {
+						$.ajax({
+							url: "vicapirwe.php",
+							type: 'GET',
+					 		data: {lat1:smalllat,lng1:smalllng,lat2:biglat, lng2:biglng },
+							datatype:'json',
+							async: false,
+							success:function(data) {
+								var myArray = JSON.parse(data);
+							myArray.features.forEach(function (ln){
+							var coor=ln.geometry.coordinates;//0long& 1lat
+							for(i=0;i<coor.length;i++)
+							{  var latlng = new google.maps.LatLng(coor[i][1],coor[i][0]);
+									if (coor[i][1]>=smalllat && coor[i][1]<=biglat && coor[i][0]>=smalllng && coor[i][0]>=biglng){
+										LatLngrwes.push(latlng);}
+									}})
+								},
 							error:function(){ throw error;}
-									});
-									var imaage="./images/info.png";
-									LatLngercs.forEach(function(LatLngerc) {
-										var marker = new google.maps.Marker({
-											position: LatLngerc,
-											icon: imaage,
-											map: map
-										});
-										markers.push(marker);
-									});
-				}
-		if(document.getElementById('rwe').checked) {
-			$.ajax({
-						url: rweurl,
+						});//	var imaage="./images/info.png";
+						if (LatLngercs.length==0){
+							alert("No close road!")}
+							else{
+								var flightPath = new google.maps.Polyline({
+									path: LatLngrwes,
+									geodesic: true,
+									strokeColor: '#FF0000',
+									strokeOpacity: 1.0,
+									strokeWeight: 2
+						});
+									flightPath.setMap(map);
+	}
+}
+						if(document.getElementById('erc').checked) {
+								$.ajax({
+									url: "vicapierc.php",
+									type: 'GET',
+							 		data: {lati1:smalllat,lngi1:smalllng,lati2:biglat, lngi2:biglng },
+									datatype:'json',
+									async: false,
+									success:function(data) {
+										  console.log(data);
+										  var myArray = JSON.parse(data);
+											myArray.features.forEach(function (ln){
+											var lng=ln.geometry.coordinates[0];//0long& 1lat
+											var lat=ln.geometry.coordinates[1];
+											var latlng = new google.maps.LatLng(lat,lng);
+											LatLngrwes.push(latlng);
+										})
+									},
+									error:function(){ throw error;}});
+			//						var imaage="./images/beachflag.png";
+			//						LatLngrwes.forEach(function(LatLngrwe) {
+			//								var marker = new google.maps.Marker({
+			//											position: LatLngrwe,
+			//											icon: imaage,
+			//											map: map});
+			//											markers.push(marker);
+			//					});
+			}
+			if(document.getElementById('pra').checked) {
+					$.ajax({
+						url: "weasug.php",
+						type: 'GET',
+						data: {lng1:smalllng,lat1:smalllat,lng2:biglng,lat2:biglat},
 						datatype:'json',
 						async: false,
 						success:function(data) {
-												data.features.forEach(function (ln){
-													var lng=ln.geometry.coordinates[0];//0long& 1lat
-													var lat=ln.geometry.coordinates[1];
-													var latlng = new google.maps.LatLng(lat,lng);
-													LatLngrwes.push(latlng);
-													console.log(ln.properties.subject_pref_rdname);})
-											},
+								console.log(data);
+								var myArray = JSON.parse(data);
+								myArray.forEach(function (ln){
+								var lng=ln.LONGITUDE;//0long& 1lat
+								var lat=ln.LATITUDE;
+								var latlng = new google.maps.LatLng(lat,lng);
+								acciMarkers.push(latlng);
+							})
+						},
+						error:function(){ throw error;}});
+						$.ajax({
+							url: "park.php",
+							type: 'GET',
+							data: {lng1:smalllng,lat1:smalllat,lng2:biglng,lat2:biglat},
+							datatype:'json',
+							async: false,
+							success:function(data) {
+									console.log(data);
+									console.log(acciMarkers.length);
+									var myArray = JSON.parse(data);
+									myArray.forEach(function (ln){
+									var lng=ln.LONGITUDE;//0long& 1lat
+									var lat=ln.LATITUDE;
+									var latlng = new google.maps.LatLng(lat,lng);
+									for(i=0;i<acciMarkers.length;i++)
+									{  if (Math.abs(acciMarkers[i].lat()-latlng.lat())>0.00008 && Math.abs(acciMarkers[i].lng()-latlng.lng())>0.00008
+									) {
+												park.push(latlng);
+											}
+											}
+											console.log(park);
+								})
+							},
 							error:function(){ throw error;}});
-					var imaage="./images/beachflag.png";
-					LatLngrwes.forEach(function(LatLngrwe) {
-						var marker = new google.maps.Marker({
-							position: LatLngrwe,
-							icon: imaage,
-							map: map});
-						markers.push(marker);
-					});
-		}
+							var imaage="./images/beachflag.png";
+							park.forEach(function(par) {
+							var marker = new google.maps.Marker({
+										position: par,
+										icon: imaage,
+							  		map: map});
+										markers.push(marker);
+							});
+}
+
 	}
 	else{
-	 alert('No such address');
- }
+		alert("No such address;")
 	}
-	}
+}
+}
 function clearMarkers() {
 	for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
