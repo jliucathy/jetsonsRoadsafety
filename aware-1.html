@@ -95,7 +95,7 @@
 											<ul class="nav navbar-nav navbar-right">
 												<li class="active"><a href="index.html">Home</a></li>
 												<li><a href="info.html">GET INFORMED</a></li>
-												<li><a href="aware-1.html">FIND PLACE</a></li>
+												<li><a href="aware-1.html">CHECK SURROUNDINGS</a></li>
 												<li><a href="aware.html">CHECK YOUR TRIP</a></li>
 												<li><a href="contact.html">CONTACT</a></li>
 											</ul>
@@ -146,21 +146,25 @@
 		<div class="space"></div>
 		<div class="container">
 			<div class="row">
-				<h2 class="text-center">FIND PLACE</h2>
+				<h2 class="text-center">CHECK SURROUNDINGS</h2>
 				<div class="row">
 					<div class="col-md-6"/>
-      			<input type="text" id="startpoint" placeholder="Your location" width="80%" required/>
+					<p>Please choose one address from autorefill address</p>
+      			<input type="text" id="startpoint" placeholder="Your location" width="130%" required/>
 						<br/>
-						<input type="radio" id="z2" name="radius">10 miles<br/>
-						<input type="radio" id="z5" name="radius">20 miles<br/>
+						<input type="radio" id="z2" name="radius">10 km<br/>
+						<input type="radio" id="z5" name="radius">20 km<br/>
 						<br/>
 						<p>Any where I can practice?</p>
 						<input type="radio" id="pra" name="vic">Suggested place(s) to practise driving<br/>
 						<br/>
 						<p>If you want to find a plcae yourself, your can see:<br/>Places near me can affect driving practice</p>
-						<input type="radio" id="erc" name="vic">Emergency closed point<br/>
-  					<input type="radio" id="rwe" name="vic">Closed lines due to Roadworks and Events<br/>
-			<!--			<input type="radio" id="rwe" name="vic">Previous accidents<br/> -->
+						<!--<input type="radio" id="ercp" name="vic">Closed points due to Emergency<br/>
+  					<input type="radio" id="ercl" name="vic">Closed roads due to Emergency<br/>-->
+						<input type="radio" id="rwel" name="vic">Closed roads<br/><br/>
+						<p>More information about detailed loations?</p>
+						<input type="radio" id="rwep" name="vic">Closed points cuased by Emergency<br/>
+			<!--			<input type="radio" id="acc" name="vic">Previous accidents<br/> -->
 						<br/>
 						<input class="btn btn-default" type="button" onClick="vis()" value="SEARCH" >
 			</div>
@@ -168,7 +172,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places,geometry"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCAtxZJdx5_gFA_B1nc8ehxvobMhurncg&libraries=places,geometry"></script>
 
 		<script>
 		//-38.973,144.686,-37.848,145.36
@@ -178,27 +182,27 @@
   					mapTypeId: google.maps.MapTypeId.TERRAIN,
           	zoomControl: true,
           	zoomControlOptions: {
-            position: google.maps.ControlPosition.LEFT_TOP
+            position: google.maps.ControlPosition.LEFT_BOTTOM
           },
           scaleControl: true,
           streetViewControl: true,
           streetViewControlOptions: {
-              position: google.maps.ControlPosition.LEFT_TOP
+              position: google.maps.ControlPosition.LEFT_BOTTOM
           }
 				});
-				var LatLngercs=[];
-				var LatLngrwes=[];
+				var LatLngercpoint=[];
+				var LatLngrwepoint=[];
+				var LatLngercline=[];
+				var LatLngrweline=[];
 				var markers=[];
 				var acciMarkers=[];
 				var park=[];
 				var begin=document.getElementById("startpoint");
-		//		var dest=document.getElementById("endpoint");
 				var option= {
     				componentRestrictions: {country: 'au'}
   			};
 				var place;
 				var autocompleteStart = new google.maps.places.Autocomplete(begin,option);
-  //      var autocompleteEnd = new google.maps.places.Autocomplete(dest,option);
 				autocompleteStart.addListener('place_changed', function() {
 										place = autocompleteStart.getPlace();
 									});
@@ -238,16 +242,10 @@
 				map: map});
 				if(!document.getElementById('z5').checked){
 					document.getElementById("z2").checked = true;
-					map.setZoom(13);
+					map.setZoom(14);
 				}
 				if(document.getElementById('z5').checked){
 					map.setZoom(11);}
-//		var accuracy = 5;
-//		var circle = new google.maps.Circle({
-//                 center: map.getCenter(),
-//                 radius: accuracy
-//             });
-//		var bounds = circle.getBounds();
 				var bounds = map.getBounds();
 				var ne = bounds.getNorthEast();
 				var sw = bounds.getSouthWest();
@@ -255,9 +253,57 @@
 				smalllng=sw.lng().toPrecision(5);//144.686;
 				biglat=ne.lat().toPrecision(5);//-37.848;
 				biglng=ne.lng().toPrecision(5);//145.36;
-				if(document.getElementById('rwe').checked) {
+				if(document.getElementById('pra').checked) {
 						$.ajax({
-							url: "vicapirwe.php",
+							url: "weekday.php",
+							type: 'GET',
+							data: {lng1:smalllng,lat1:smalllat,lng2:biglng,lat2:biglat},
+							datatype:'json',
+							async: false,
+							success:function(data) {
+									var myArray = JSON.parse(data);
+									myArray.forEach(function (ln){
+									var lng=ln.LONGITUDE;//0long& 1lat
+									var lat=ln.LATITUDE;
+									var latlng = new google.maps.LatLng(lat,lng);
+									acciMarkers.push(latlng);
+								})
+							},
+							error:function(){ throw error;}});
+							$.ajax({
+								url: "park.php",
+								type: 'GET',
+								data: {lng1:smalllng,lat1:smalllat,lng2:biglng,lat2:biglat},
+								datatype:'json',
+								async: false,
+								success:function(data) {
+										var myArray = JSON.parse(data);
+										myArray.forEach(function (ln){
+										var lng=ln.LONGITUDE;//0long& 1lat
+										var lat=ln.LATITUDE;
+										var latlng = new google.maps.LatLng(lat,lng);
+										for(i=0;i<acciMarkers.length;i++)
+										{  if (Math.abs(acciMarkers[i].lat()-latlng.lat())>0.00008 && Math.abs(acciMarkers[i].lng()-latlng.lng())>0.00008
+										) {
+													park.push(latlng);
+												}
+												}
+												console.log(park);
+									})
+								},
+								error:function(){ throw error;}});
+								var imaage="./images/parking.png";
+								park.forEach(function(par) {
+								var marker = new google.maps.Marker({
+											position: par,
+											icon: imaage,
+								  		map: map});
+											markers.push(marker);
+								});
+	}
+				if(document.getElementById('rwel').checked) {
+						$.ajax({
+							url: "vicapirweline.php",
 							type: 'GET',
 					 		data: {lat1:smalllat,lng1:smalllng,lat2:biglat, lng2:biglng },
 							datatype:'json',
@@ -269,27 +315,27 @@
 							for(i=0;i<coor.length;i++)
 							{  var latlng = new google.maps.LatLng(coor[i][1],coor[i][0]);
 									if (coor[i][1]>=smalllat && coor[i][1]<=biglat && coor[i][0]>=smalllng && coor[i][0]>=biglng){
-										LatLngrwes.push(latlng);}
+										LatLngrweline.push(latlng);}
 									}})
 								},
 							error:function(){ throw error;}
-						});//	var imaage="./images/info.png";
-						if (LatLngercs.length==0){
-							alert("No close road!")}
+						});
+						if (LatLngrweline.length==0){
+							alert("No closed road!")}
 							else{
-								var flightPath = new google.maps.Polyline({
-									path: LatLngrwes,
+								var flightPath = new google.maps.Polygon({
+									path: LatLngrweline,
 									geodesic: true,
 									strokeColor: '#FF0000',
 									strokeOpacity: 1.0,
-									strokeWeight: 2
+									strokeWeight: 5
 						});
 									flightPath.setMap(map);
 	}
 }
-						if(document.getElementById('erc').checked) {
+						if(document.getElementById('rwep').checked) {
 								$.ajax({
-									url: "vicapierc.php",
+									url: "vicapipoint.php",
 									type: 'GET',
 							 		data: {lati1:smalllat,lngi1:smalllng,lati2:biglat, lngi2:biglng },
 									datatype:'json',
@@ -301,70 +347,24 @@
 											var lng=ln.geometry.coordinates[0];//0long& 1lat
 											var lat=ln.geometry.coordinates[1];
 											var latlng = new google.maps.LatLng(lat,lng);
-											LatLngrwes.push(latlng);
+											LatLngrwepoint.push(latlng);
 										})
 									},
 									error:function(){ throw error;}});
-			//						var imaage="./images/beachflag.png";
-			//						LatLngrwes.forEach(function(LatLngrwe) {
-			//								var marker = new google.maps.Marker({
-			//											position: LatLngrwe,
-			//											icon: imaage,
-			//											map: map});
-			//											markers.push(marker);
-			//					});
+									var imaage="./images/beachflag.png";
+									if (LatLngrwepoint.length==0){
+										alert("No closed point!")}
+										else{
+									LatLngrwepoint.forEach(function(LatLngrwe) {
+											var marker = new google.maps.Marker({
+														position: LatLngrwe,
+														icon: imaage,
+														map: map});
+														markers.push(marker);
+								});
+							}
 			}
-			if(document.getElementById('pra').checked) {
-					$.ajax({
-						url: "weasug.php",
-						type: 'GET',
-						data: {lng1:smalllng,lat1:smalllat,lng2:biglng,lat2:biglat},
-						datatype:'json',
-						async: false,
-						success:function(data) {
-								console.log(data);
-								var myArray = JSON.parse(data);
-								myArray.forEach(function (ln){
-								var lng=ln.LONGITUDE;//0long& 1lat
-								var lat=ln.LATITUDE;
-								var latlng = new google.maps.LatLng(lat,lng);
-								acciMarkers.push(latlng);
-							})
-						},
-						error:function(){ throw error;}});
-						$.ajax({
-							url: "park.php",
-							type: 'GET',
-							data: {lng1:smalllng,lat1:smalllat,lng2:biglng,lat2:biglat},
-							datatype:'json',
-							async: false,
-							success:function(data) {
-									console.log(data);
-									console.log(acciMarkers.length);
-									var myArray = JSON.parse(data);
-									myArray.forEach(function (ln){
-									var lng=ln.LONGITUDE;//0long& 1lat
-									var lat=ln.LATITUDE;
-									var latlng = new google.maps.LatLng(lat,lng);
-									for(i=0;i<acciMarkers.length;i++)
-									{  if (Math.abs(acciMarkers[i].lat()-latlng.lat())>0.00008 && Math.abs(acciMarkers[i].lng()-latlng.lng())>0.00008
-									) {
-												park.push(latlng);
-											}
-											}
-											console.log(park);
-								})
-							},
-							error:function(){ throw error;}});
-							var imaage="./images/beachflag.png";
-							park.forEach(function(par) {
-							var marker = new google.maps.Marker({
-										position: par,
-										icon: imaage,
-							  		map: map});
-										markers.push(marker);
-							});
-}
+
 
 	}
 	else{

@@ -259,8 +259,8 @@ blockquote {
 }
 .default-bg a,
 .translucent-bg a {
-	color: #ffffff;
-	text-decoration: underline;
+	color: #ffa500;
+	text-decoration: none;
 }
 .default-bg a:hover,
 .translucent-bg a:hover {
@@ -558,7 +558,7 @@ textarea {
 }
 .main-navigation .navbar-default .navbar-nav > li.active > a {
 	background-color: transparent;
-	color: #55acee;
+	color: #FFFFFF;
 }
 .main-navigation .navbar-default .navbar-nav > li > a:hover,
 .main-navigation .navbar-default .navbar-nav > li.active > a:hover {
