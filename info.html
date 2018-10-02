@@ -55,7 +55,7 @@
 
 							<!-- name-and-slogan -->
 							<div class="site-name-and-slogan smooth-scroll">
-								<div class="site-name"><a href="#banner">KEEP SAFE</a></div>
+								<div class="site-name"><a href="index.html">KEEP SAFE</a></div>
 							</div>
 
 						</div>
@@ -90,11 +90,11 @@
 										<!-- Collect the nav links, forms, and other content for toggling -->
 										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
 											<ul class="nav navbar-nav navbar-right">
-												<li class="active"><a href="index.html">Home</a></li>
-												<li><a href="info.html">GET INFORMED</a></li>
-												<li><a href="aware-1.html">FIND PLACE</a></li>
-												<li><a href="aware.html">CHECK YOUR TRIP</a></li>
-												<li><a href="contact.html">CONTACT</a></li>
+												<li class="active"><a href="index.html">HOME</a></li>
+												<li><a href="info.html">INFO</a></li>
+												<li><a href="instruction.html">QUIZ</a></li>
+												<li><a href="aware-1.html">SURROUNDING</a></li>
+												<li><a href="aware.html">TRIP</a></li>
 											</ul>
 										</div>
 
@@ -116,15 +116,12 @@
 
 		<!-- banner start -->
 		<!-- ================ -->
-		<div id="banner" class="banner">
-			<div class="banner-image-info"></div>
-			<div class="banner-caption">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8 col-md-offset-2 object-non-visible" data-animation-effect="fadeIn">
-							<h1 class="text-center">GET INFORMED</h1>
-						</div>
-					</div>
+		<div class="default-bg space" >
+			<br/><br/>
+			<div class="container">
+				<div class="row">
+					<br/><br/><br/>
+						<h1 class="text-center" style="color:white">Get informed</h1>
 				</div>
 			</div>
 		</div>
@@ -136,7 +133,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h1 id="about" class="title text-left"><span>TOP REASONS FOR YOUNG DRIVERS HAVING ACCIDENTS (BASED ON OUR DATA SET)</span></h1>
+						<h1 id="about" class="title text-left"><span>TOP REASONS FOR ACCIDENTS AMONG THE YOUNG DRIVERS (BASED ON OUR DATA SET)</span></h1>
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-12">
@@ -178,7 +175,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<h1><span>WHY FOCUS</span></h1>
-								<h3>According to a recent review of young drivers by the Australian Transport Safety Bureau (ATBS), it was found young drivers were at greater risk on the roads for a range of reasons including:</h3>
+								<h3>According to a recent survey of young drivers by the Australian Transport Safety Bureau (ATBS), it was found that young drivers were at greater risk on the roads for a range of reasons including:</h3>
 								<ul class="list-unstyled">
 									<li><i class="fa fa-caret-right pr-10 text-colored"></i> lack of experience</li>
 									<li><i class="fa fa-caret-right pr-10 text-colored"></i> limited ability and judgement</li>
@@ -211,7 +208,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<h2 class="text-center"><a href="arightbleft.html">Need more Practice? Let's practise in real street view!</a></h2>
+							<h2 class="text-center"><a href="instruction.html">Need more Practice? CLICK HERE to practise in real street view!</a></h2>
 						</div>
 						</div>
 					</div>
@@ -245,13 +242,25 @@
 				<div class ="col-md-6">
 					<div class="col-md-6">
 						<h3 style="color:black">SEARCH</h3>
+						<form action="https://www.google.com/search" method="get" onSubmit="Gsitesearch(this)">
+									<input name="q" type="hidden" />
+									<input name="qfront" type="text" style="width: 260px" /> 
+									<br/><br/>
+									<input type="submit" value="Search" class="btn btn-default" />
+								</form>
+								<script type="text/javascript">
+									var domainroot="drivebettervic.today"
+									function Gsitesearch(curobj){
+											curobj.q.value="site:"+domainroot+" "+curobj.qfront.value
+											}
+								</script>
 					</div>
 					<div class="col-md-6">
 						<h3 style="color:black">DATA SOUCE</h3>
 						<blockquote style="color: navy">
-							<p>GOVERNMENT OF VICTORIA</p>
-							<p>VICROADS</p>
-							<p>OPENWEATHERMAP</p>
+							<p><a href="https://www.data.vic.gov.au/">GOVERNMENT OF VICTORIA</a></p>
+							<p><a href="https://www.vicroads.vic.gov.au/">VICROADS</a></p>
+							<p><a href="https://openweathermap.org/">OPENWEATHERMAP</a></p>
 						</blockquote>
 					</div>
 				</div>

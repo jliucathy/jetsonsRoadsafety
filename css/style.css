@@ -181,6 +181,7 @@ blockquote {
 	width: 100%;
 	z-index: 2;
 }
+
 .footer {
 	background-color: #fafafa;
 	border-top: 1px solid #f3f3f3;
@@ -192,10 +193,8 @@ blockquote {
 }
 .subfooter {
 	background-color: #fafafa;
-<<<<<<< HEAD
 	border-top: 1px solid #f3f3f3;
 	border-bottom: 1px solid #f3f3f3;
-=======
 	border-top: solid #f3f3f3;
 	border-bottom: solid #f3f3f3;
 	padding: 0 0;
@@ -204,7 +203,6 @@ blockquote {
 	background-color: #fafafa;
 	border-top: solid #f3f3f3;
 	border-bottom: solid #f3f3f3;
->>>>>>> d4cf48609d9fc42cc460a341d6b773c548364c53
 	padding: 0 0;
 }
 .footer p{
@@ -221,6 +219,8 @@ blockquote {
 .default-bg {
 	background-color: #708090;
 	color: 	#ff8c00;
+	margin-top: 0;
+	background-image: url('../images/opppp.jpg');
 }
 .default-bg-index {
 	background-color: 	#000000;
@@ -392,7 +392,6 @@ blockquote {
   padding: 20px 100px;
 }
 #map {
-        width: 500px;
 				height: 400px;
       }
 

@@ -90,11 +90,11 @@
 										<!-- Collect the nav links, forms, and other content for toggling -->
 										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
 											<ul class="nav navbar-nav navbar-right">
-												<li class="active"><a href="index.html">Home</a></li>
-												<li><a href="info.html">GET INFORMED</a></li>
-												<li><a href="aware-1.html">CHECK SOUROUNDINGS</a></li>
-												<li><a href="aware.html">CHECK YOUR TRIP</a></li>
-												<li><a href="contact.html">CONTACT</a></li>
+												<li class="active"><a href="index.html">HOME</a></li>
+												<li><a href="info.html">INFO</a></li>
+												<li><a href="instruction.html">QUIZ</a></li>
+												<li><a href="aware-1.html">SOUROUNDING</a></li>
+												<li><a href="aware.html">TRIP</a></li>
 											</ul>
 										</div>
 
@@ -178,7 +178,7 @@
 								</a>
 								</div>
 								<div class="text-center">
-									<h2 style="color:orange">GET INFORMED</h2>
+									<h2 style="color:orange"><a href="info.html">GET INFORMED</a></h2>
 									<blockquote style="color: white">
 										<p>What are young drivers?</p>
 										<p>why we should care about young drivers?</p>
@@ -195,7 +195,7 @@
 									</a>
 									</div>
 									<div class="text-center">
-										<h2 style="color:orange">FIND A PLACE</h2>
+										<h2 style="color:orange"><a href="aware-1.html">SURROUNDINGS</a></h2>
 										<blockquote style="color: white">
 											<p>Spend less than two minutes</p>
 											<p>to find a place to practise driving.</p>
@@ -211,7 +211,7 @@
 										</a>
 										</div>
 										<div class="text-center">
-											<h2 style="color:orange">CHECK YOUR TRIP</h2>
+											<h2 style="color:orange"><a href="aware.html">YOUR TRIP</a></h2>
 											<blockquote style="color: white">
 												<p>Just need two minutes before your trip</p>
 												<p>to help you know the route better.</p>
@@ -258,6 +258,18 @@
 					<div class ="col-md-6">
 						<div class="col-md-6">
 							<h3 style="color:black">SEARCH</h3>
+							<form action="https://www.google.com/search" method="get" onSubmit="Gsitesearch(this)">
+										<input name="q" type="hidden" />
+										<input name="qfront" type="text" style="width: 260px" /> 
+										<br/><br/>
+										<input type="submit" value="Search" class="btn btn-default" />
+									</form>
+									<script type="text/javascript">
+										var domainroot="drivebettervic.today"
+										function Gsitesearch(curobj){
+												curobj.q.value="site:"+domainroot+" "+curobj.qfront.value
+												}
+									</script>
 						</div>
 						<div class="col-md-6">
 							<h3 style="color:black">DATA SOUCE</h3>
