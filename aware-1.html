@@ -96,7 +96,7 @@
 												<li class="active"><a href="index.html">HOME</a></li>
 												<li><a href="info.html">INFO</a></li>
 												<li><a href="instruction.html">QUIZ</a></li>
-												<li><a href="aware-1.html">SURROUNDING</a></li>
+												<li><a href="aware-1.html">SURROUNDINGS</a></li>
 												<li><a href="aware.html">TRIP</a></li>
 										<!--		<li><a href="contact.html">CONTACT</a></li> -->
 											</ul>
@@ -127,7 +127,7 @@
 			<div class="container">
 				<div class="row">
 					<br/><br/><br/>
-						<h1 class="text-center" style="color:white">Check Surrounding</h1>
+						<h1 class="text-center" style="color:white">Check Surroundings</h1>
 				</div>
 			</div>
 		</div>
@@ -145,23 +145,21 @@
 						<br/>
 						<select name="selections" id="options">
 								<option>Choose 1 of them</option>
-    						<option value="1">Option 1: Suggested places to park car(s)</option>
-    						<option value="2">Option 2: Check closed places nearby</option>
+    						<option id="pra" value="1">Option 1: Suggested places to park car(s)</option>
+    						<option id="pra1" value="2">Option 2: Check closed places nearby</option>
 						</select>
 						<br/><br/>
 					<div id="choices">
 						<div class="place-1" hidden>
 						<p>Suggested places to park car(s)</p>
-						<input type="radio" id="pra" name="vic" checked>Suggested place(s) to park car(s)
 						<img src="images/parking.png" alt="" class="img-responsive" style="margin:0;display:inline">
 						</div>
 						<div class="place-2" hidden>
 						<p>If you want to know more about the surrounding, your can see:<br/>Places near me can affect driving car</p>
-						<input type="radio" id="rwel" name="vic">Closed roads
+						<p>Closed roads</p>
 						<img src="images/redline.jpg" alt="" class="img-responsive" style="margin:0;display:inline">
 						<br/><br/>
-						<p>More information about detailed loations?</p>
-						<input type="radio" id="rwep" name="vic">Closed points cuased by emergency
+						<p>Closed points caused by emergency</p>
 						<img src="images/beachflag.png" alt="" class="img-responsive" style="margin:0;display:inline">
 					</div>
 				</div>
@@ -187,6 +185,7 @@
           zoomControl: false,
           scaleControl: true,
           streetViewControl: true,
+					fullscreenControl: false,
           streetViewControlOptions: {
               position: google.maps.ControlPosition.LEFT_BOTTOM
           }
@@ -204,6 +203,7 @@
     				componentRestrictions: {country: 'au'}
   			};
 				var place;
+				var isExePolyline=false;
 				var autocompleteStart = new google.maps.places.Autocomplete(begin,option);
 				autocompleteStart.addListener('place_changed', function() {
 										place = autocompleteStart.getPlace();
@@ -214,6 +214,7 @@
 				var biglng;
 				var lattemp1u;
 				var lngtemp1u;
+				var flightPath;
 				$(function(){
   					$('#options').on('change',function(){
     				$('#choices div').hide();
@@ -261,7 +262,7 @@
 				smalllng=sw.lng().toPrecision(5);//144.686;
 				biglat=ne.lat().toPrecision(5);//-37.848;
 				biglng=ne.lng().toPrecision(5);//145.36;
-				if(document.getElementById('pra').checked) {
+				if(document.getElementById('pra').value==1 && document.getElementById('pra').selected) {
 					$.ajax({
 						url: "weather.php",
 						type: 'GET',
@@ -326,7 +327,7 @@
 											markers.push(marker);
 								});
 	}
-				if(document.getElementById('rwel').checked) {
+				if(document.getElementById('pra1').selected) {
 
 						$.ajax({
 							url: "vicapirweline.php",
@@ -349,7 +350,7 @@
 						if (LatLngrweline.length==0){
 							alert("No closed road!")}
 							else{
-								var flightPath = new google.maps.Polyline({
+								flightPath = new google.maps.Polyline({
 									path: LatLngrweline,
 									geodesic: true,
 									strokeColor: '#FF0000',
@@ -357,9 +358,10 @@
 									strokeWeight: 5
 						});
 									flightPath.setMap(map);
+									isExePolyline=true;
 	}
 }
-						if(document.getElementById('rwep').checked) {
+						if(document.getElementById('pra1').selected) {
 								$.ajax({
 									url: "vicapipoint.php",
 									type: 'GET',
@@ -402,7 +404,12 @@ function clearMarkers() {
   markers = [];
 	LatLngercs=[];
 	LatLngrwes=[];
+	LatLngrweline=[];
 	centerMarker=[];
+	park=[];
+	if(isExePolyline==true){
+			flightPath.setMap(null);
+		}
 }
 	</script>
 
