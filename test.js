@@ -97,7 +97,7 @@ function initMap()
         if (destination.geometry) {
             desLat = destination.geometry.location.lat();
             desLng = destination.geometry.location.lng();
-            //zoom a bit to ensure surrounding is included
+            //zoom a bit to ensure SURROUNDINGS is included
             desLatMin = desLat - 0.005;
             desLatMax = desLat + 0.005;
             desLngMin = desLng - 0.005;

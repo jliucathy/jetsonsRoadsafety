@@ -96,7 +96,7 @@ function withDes()
             point = results[0].geometry.location.toJSON();
             lat = point.lat;
             lng = point.lng;
-            //zoom a bit to ensure surrounding is included
+            //zoom a bit to ensure SURROUNDINGS is included
             latMin = lat - 0.005;
             latMax = lat + 0.005;
             lngMin = lng - 0.005;
@@ -113,7 +113,7 @@ function withDes()
                      point = results[0].geometry.location.toJSON();
                     desLat=point.lat;
                     desLng=point.lng;
-                    //zoom a bit to ensure surrounding is included
+                    //zoom a bit to ensure SURROUNDINGS is included
                     desLatMin = desLat - 0.005;
                     desLatMax = desLat + 0.005;
                     desLngMin = desLng - 0.005;

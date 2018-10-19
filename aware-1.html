@@ -155,7 +155,7 @@
 						<img src="images/parking.png" alt="" class="img-responsive" style="margin:0;display:inline">
 						</div>
 						<div class="place-2" hidden>
-						<p>If you want to know more about the surrounding, your can see:<br/>Places near me can affect driving car</p>
+						<p>If you want to know more about the SURROUNDINGS, your can see:<br/>Places near me can affect driving car</p>
 						<p>Closed roads</p>
 						<img src="images/redline.jpg" alt="" class="img-responsive" style="margin:0;display:inline">
 						<br/><br/>
@@ -417,16 +417,9 @@ function clearMarkers() {
 		<footer id="footer">
 			<!-- .footer start -->
 			<div class="footer">
-				<div class ="col-md-6">
-					<div class="col-md-6">
-						<h3 style="color:black">FIND US</h3>
-						<blockquote style="color: navy">
-							<p>Address</p>
-							<p>900 Dandenong Rd, Caulfield East</p>
-							<p>Melbourne,VIC 3145</p>
-						</blockquote>
-					</div>
-					<div class="col-md-6">
+				<div class="container">
+					<div class="row">
+					<div class="col-md-4">
 						<h3 style="color:black">ABOUT THIS WEBSITE</h3>
 						<blockquote style="color: navy">
 							<p>We aim to spread awareness of the</p>
@@ -435,24 +428,22 @@ function clearMarkers() {
 							<p>informed when on the road.</p>
 						</blockquote>
 					</div>
-				</div>
-				<div class ="col-md-6">
-					<div class="col-md-6">
+				<div class ="col-md-4">
 						<h3 style="color:black">SEARCH</h3>
-						<form action="https://www.google.com/search" method="get" onSubmit="Gsitesearch(this)">
-									<input name="q" type="hidden" />
-									<input name="qfront" type="text" style="width: 260px" /> 
-									<br/><br/>
-									<input type="submit" value="Search" class="btn btn-default" />
-								</form>
-								<script type="text/javascript">
-									var domainroot="drivebettervic.today"
-									function Gsitesearch(curobj){
-											curobj.q.value="site:"+domainroot+" "+curobj.qfront.value
-											}
-								</script>
+				<form action="https://www.google.com/search" method="get" onSubmit="Gsitesearch(this)">
+							<input name="q" type="hidden" />
+							<input name="qfront" type="text" style="width: 260px" /> 
+							<br/><br/>
+							<input type="submit" value="Search" class="btn btn-default" />
+						</form>
+						<script type="text/javascript">
+							var domainroot="drivebettervic.today"
+							function Gsitesearch(curobj){
+									curobj.q.value="site:"+domainroot+" "+curobj.qfront.value
+									}
+						</script>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<h3 style="color:black">DATA SOUCE</h3>
 						<blockquote style="color: navy">
 							<p><a href="https://www.data.vic.gov.au/">GOVERNMENT OF VICTORIA</a></p>
@@ -460,6 +451,8 @@ function clearMarkers() {
 							<p><a href="https://openweathermap.org/">OPENWEATHERMAP</a></p>
 						</blockquote>
 					</div>
+				</div>
+			</div>
 				</div>
 			<!-- ================ -->
 		<div class="subfooter">

@@ -102,7 +102,7 @@ function withDes()
             //if reveive google's information of start position, get latitude and longtitude of this position
             lat = results[0].geometry.location.lat();
             lng = results[0].geometry.location.lng();
-            //zoom a bit to ensure surrounding is included
+            //zoom a bit to ensure SURROUNDINGS is included
             latMin = lat - 0.005;
             latMax = lat + 0.005;
             lngMin = lng - 0.005;
@@ -125,7 +125,7 @@ function withDes()
 
                     desLat = results[0].geometry.location.lat();
                     desLng = results[0].geometry.location.lng();
-                    //zoom a bit to ensure surrounding is included
+                    //zoom a bit to ensure SURROUNDINGS is included
                     desLatMin = desLat - 0.005;
                     desLatMax = desLat + 0.005;
                     desLngMin = desLng - 0.005;
