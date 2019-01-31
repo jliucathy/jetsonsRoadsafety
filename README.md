@@ -1,5 +1,5 @@
 # jetsonsRoadsafety
-First non-personal project
+First team project
 
 Please visit https://drivebettervic.today
 
